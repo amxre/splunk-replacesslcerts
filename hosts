@@ -1,0 +1,6 @@
+# All hosts
+[splunk]
+
+
+# Hosts with Splunk Web enabled
+[splunk_web]
