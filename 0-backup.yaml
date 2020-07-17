@@ -4,10 +4,11 @@
   become_user: splunk
 
   tasks:
-    - name: Copy server.conf to server.conf.bak.012019
+    - name: Backup server.conf on all servers to server.conf.bak.ansible
+      hosts: all
       copy:
         src: /opt/splunk/etc/system/local/server.conf
-        dest: /opt/splunk/etc/system/local/server.conf.bak.01172019
+        dest: /opt/splunk/etc/system/local/server.conf.bak.ansible
         remote_src: yes
         owner: splunk
         group: splunk
@@ -16,15 +17,15 @@
 
 
 - name: Backup web.conf on Splunk Web enabled servers
-  hosts: itio*dpm01,cm,hf,adhoc,es
+  hosts: splunk_web
   become: true
   become_user: splunk
 
   tasks:
-    - name: Copy web.conf to web.conf.bak.012019
+    - name: Copy web.conf to web.conf.bak.ansible
       copy:
         src: /opt/splunk/etc/system/local/web.conf
-        dest: /opt/splunk/etc/system/local/web.conf.bak.01172019
+        dest: /opt/splunk/etc/system/local/web.conf.bak.ansible
         remote_src: yes
         owner: splunk
         group: splunk
