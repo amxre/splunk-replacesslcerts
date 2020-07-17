@@ -1,5 +1,5 @@
 - name: Configure web.conf on Splunk Web enabled servers where web.conf exists
-  hosts: itio*dpm01,cm,hf,adhoc,es
+  hosts: splunk_web
   become: true
   become_user: splunk
   tasks: 
@@ -27,41 +27,3 @@
         line: 'caCertPath = $SPLUNK_HOME/etc/auth/new_cert/{{ inventory_hostname }}_web.pem'
     
 
-- name: Configure web.conf on Indexers or where web.conf doesn't exist 
-  hosts: itio*idx*, itio*dpr*
-  become: true
-  become_user: splunk
-  tasks:
-
-    # Confirm web.conf doesn't exist 
-    # Create [settings] stanza and ensure web.conf is created
-
-    # Comment out caCertPath
-    - name: Add [settings] stanza to web.conf
-      lineinfile:
-        path: /opt/splunk/etc/system/local/web.conf
-        line: '\[settings\]'
-        state: present
-        create: yes
-
-    - name: Add privKeyPath to web.conf after [settings] stanza
-      lineinfile:
-        path: /opt/splunk/etc/system/local/web.conf
-        line: 'privKeyPath = $SPLUNK_HOME/etc/auth/new_cert/splunk-srv1.web.key'
-        insertafter: '\[settings\]'
-
-    - name: Add serverCert to web.conf after privKeyPath 
-      lineinfile:
-        path: /opt/splunk/etc/system/local/web.conf
-        line: 'caCertPath = $SPLUNK_HOME/etc/auth/new_cert/{{ inventory_hostname }}_web.pem'
-        insertafter: '\[settings\]'
-
-# Add sslVersions
-    - name: Add sslVersions to web.conf after serverCert
-      lineinfile:
-        path: /opt/splunk/etc/system/local/web.conf
-        line: 'sslVersions = tls, -tls1.0'
-        insertafter: 'serverCert'
-
-#  hosts: es deploy cm adhoc hf
-  

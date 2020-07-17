@@ -14,7 +14,7 @@
  
 
 - name: Restore web.conf on Splunk Web enabled servers
-  hosts: itio*dpm01 , cm, hf, adhoc, es
+  hosts: splunk_web
   become: true
   become_user: splunk
 
@@ -28,16 +28,8 @@
         group: splunk
       ignore_errors: yes
 
-- name: Reset (delete) web.conf on Indexers
-  hosts: itio*idx*, itio*dpr*
-  become: true
-  become_user: splunk
 
-  tasks:
-    - name: Delete web.conf on indexers
-      shell: /bin/rm -f /opt/splunk/etc/system/local/web.conf 
-
-- name: Delete new certs
+- name: Remove uploaded certs
   hosts: all
   become: true
   become_user: splunk
