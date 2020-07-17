@@ -1,6 +1,1 @@
-# All hosts
-[splunk]
-
-
-# Hosts with Splunk Web enabled
-[splunk_web]
+172.16.255.129	ansible_host=172.16.255.129

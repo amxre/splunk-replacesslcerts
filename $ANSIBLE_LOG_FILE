@@ -1,0 +1,110 @@
+2020-07-17 13:37:10,713 p=102707 u=splunk |   
+2020-07-17 13:37:10,713 p=102707 u=splunk |  /usr/bin/ansible-playbook fetch-serverconf.yaml -i hosts -K
+2020-07-17 13:37:10,713 p=102707 u=splunk |   
+2020-07-17 13:37:13,366 p=102707 u=splunk |  ERROR: become_user is not a legal parameter in an Ansible Playbook
+2020-07-17 13:37:35,752 p=103124 u=splunk |   
+2020-07-17 13:37:35,753 p=103124 u=splunk |  /usr/bin/ansible-playbook fetch-serverconf.yaml -i hosts -K -b splunk
+2020-07-17 13:37:35,753 p=103124 u=splunk |   
+2020-07-17 13:37:45,357 p=103189 u=splunk |   
+2020-07-17 13:37:45,357 p=103189 u=splunk |  /usr/bin/ansible-playbook fetch-serverconf.yaml -i hosts -K -u splunk
+2020-07-17 13:37:45,357 p=103189 u=splunk |   
+2020-07-17 13:37:50,571 p=103189 u=splunk |  ERROR: become_user is not a legal parameter in an Ansible Playbook
+2020-07-17 13:38:57,463 p=103775 u=splunk |   
+2020-07-17 13:38:57,463 p=103775 u=splunk |  /usr/bin/ansible-playbook fetch-serverconf.yaml -i hosts -K
+2020-07-17 13:38:57,463 p=103775 u=splunk |   
+2020-07-17 13:39:00,553 p=103775 u=splunk |  ERROR: become_user is not a legal parameter in an Ansible Playbook
+2020-07-17 13:40:47,743 p=105221 u=splunk |   
+2020-07-17 13:40:47,744 p=105221 u=splunk |  /usr/bin/ansible-playbook fetch-serverconf.yaml -i hosts -K
+2020-07-17 13:40:47,744 p=105221 u=splunk |   
+2020-07-17 13:40:50,217 p=105221 u=splunk |  ERROR: fetch is not a legal parameter in an Ansible task or handler
+2020-07-17 13:43:03,166 p=106510 u=splunk |  
+2020-07-17 13:43:03,167 p=106510 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -K
+2020-07-17 13:43:03,167 p=106510 u=splunk |  
+2020-07-17 13:43:05,669 p=106510 u=splunk |  No hosts matched
+2020-07-17 14:13:04,660 p=115100 u=splunk |  
+2020-07-17 14:13:04,660 p=115100 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:13:04,660 p=115100 u=splunk |  
+2020-07-17 14:13:06,676 p=115100 u=splunk |  No hosts matched
+2020-07-17 14:13:43,822 p=115811 u=splunk |  
+2020-07-17 14:13:43,823 p=115811 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:13:43,823 p=115811 u=splunk |  
+2020-07-17 14:13:46,087 p=115811 u=splunk |  No hosts matched
+2020-07-17 14:15:10,080 p=117035 u=splunk |  
+2020-07-17 14:15:10,083 p=117035 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:15:10,083 p=117035 u=splunk |  
+2020-07-17 14:15:12,174 p=117035 u=splunk |  No hosts matched
+2020-07-17 14:15:51,080 p=117636 u=splunk |  
+2020-07-17 14:15:51,081 p=117636 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i 127.0.0.1 -u splunk -K
+2020-07-17 14:15:51,081 p=117636 u=splunk |  
+2020-07-17 14:15:53,238 p=117636 u=splunk |  ERROR: Unable to find an inventory file, specify one with -i ?
+2020-07-17 14:16:40,477 p=118409 u=splunk |  
+2020-07-17 14:16:40,479 p=118409 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:16:40,479 p=118409 u=splunk |  
+2020-07-17 14:16:42,088 p=118409 u=splunk |  No hosts matched
+2020-07-17 14:17:25,342 p=119153 u=splunk |  
+2020-07-17 14:17:25,342 p=119153 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:17:25,342 p=119153 u=splunk |  
+2020-07-17 14:17:27,365 p=119153 u=splunk |  No hosts matched
+2020-07-17 14:17:53,165 p=119549 u=splunk |  
+2020-07-17 14:17:53,165 p=119549 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:17:53,165 p=119549 u=splunk |  
+2020-07-17 14:17:55,569 p=119549 u=splunk |  No hosts matched
+2020-07-17 14:18:15,241 p=119852 u=splunk |  
+2020-07-17 14:18:15,243 p=119852 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:18:15,243 p=119852 u=splunk |  
+2020-07-17 14:18:22,820 p=120010 u=splunk |  
+2020-07-17 14:18:22,822 p=120010 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts.ini -u splunk -K
+2020-07-17 14:18:22,822 p=120010 u=splunk |  
+2020-07-17 14:18:24,732 p=120010 u=splunk |  No hosts matched
+2020-07-17 14:19:07,996 p=120510 u=splunk |  
+2020-07-17 14:19:07,997 p=120510 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i /home/splunk/repos/splunk-replacesslcerts/hosts.ini -u splunk -K
+2020-07-17 14:19:07,997 p=120510 u=splunk |  
+2020-07-17 14:19:09,683 p=120510 u=splunk |  No hosts matched
+2020-07-17 14:23:24,773 p=123474 u=splunk |  
+2020-07-17 14:23:24,773 p=123474 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i /home/splunk/repos/splunk-replacesslcerts/hosts.ini -u splunk -K
+2020-07-17 14:23:24,773 p=123474 u=splunk |  
+2020-07-17 14:23:29,241 p=123474 u=splunk |  No hosts matched
+2020-07-17 14:23:56,389 p=123598 u=splunk |  
+2020-07-17 14:23:56,389 p=123598 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i /home/splunk/repos/splunk-replacesslcerts/hosts -u splunk -K
+2020-07-17 14:23:56,389 p=123598 u=splunk |  
+2020-07-17 14:23:59,169 p=123598 u=splunk |  ERROR: problem running /home/splunk/repos/splunk-replacesslcerts/hosts --list ([Errno 8] Exec format error)
+2020-07-17 14:24:43,947 p=124121 u=splunk |  
+2020-07-17 14:24:43,947 p=124121 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:24:43,947 p=124121 u=splunk |  
+2020-07-17 14:24:45,696 p=124121 u=splunk |  ERROR: problem running /home/splunk/repos/splunk-replacesslcerts/hosts --list ([Errno 8] Exec format error)
+2020-07-17 14:25:21,808 p=124626 u=splunk |  
+2020-07-17 14:25:21,811 p=124626 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:25:21,811 p=124626 u=splunk |  
+2020-07-17 14:25:23,784 p=124626 u=splunk |  ERROR: problem running /home/splunk/repos/splunk-replacesslcerts/hosts --list ([Errno 8] Exec format error)
+2020-07-17 14:25:39,340 p=124929 u=splunk |  
+2020-07-17 14:25:39,340 p=124929 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:25:39,340 p=124929 u=splunk |  
+2020-07-17 14:25:42,734 p=124929 u=splunk |  ERROR: problem running /home/splunk/repos/splunk-replacesslcerts/hosts --list ([Errno 8] Exec format error)
+2020-07-17 14:25:53,093 p=125096 u=splunk |  
+2020-07-17 14:25:53,093 p=125096 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i hosts -u splunk -K
+2020-07-17 14:25:53,093 p=125096 u=splunk |  
+2020-07-17 14:25:55,172 p=125096 u=splunk |  ERROR: problem running /home/splunk/repos/splunk-replacesslcerts/hosts --list ([Errno 8] Exec format error)
+2020-07-17 14:27:53,674 p=126330 u=splunk |  
+2020-07-17 14:27:53,675 p=126330 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml -i 172.16.255.129 -u splunk -K
+2020-07-17 14:27:53,675 p=126330 u=splunk |  
+2020-07-17 14:27:55,660 p=126330 u=splunk |  ERROR: Unable to find an inventory file, specify one with -i ?
+2020-07-17 14:28:24,380 p=126764 u=splunk |  
+2020-07-17 14:28:24,381 p=126764 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml --inventory 172.16.255.129 -u splunk -K
+2020-07-17 14:28:24,381 p=126764 u=splunk |  
+2020-07-17 14:28:26,346 p=126764 u=splunk |  ERROR: Unable to find an inventory file, specify one with -i ?
+2020-07-17 14:28:42,135 p=127027 u=splunk |  
+2020-07-17 14:28:42,135 p=127027 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml --inventory-file hosts -C -u splunk -K
+2020-07-17 14:28:42,135 p=127027 u=splunk |  
+2020-07-17 14:28:44,325 p=127027 u=splunk |  ERROR: problem running /home/splunk/repos/splunk-replacesslcerts/hosts --list ([Errno 8] Exec format error)
+2020-07-17 14:29:54,482 p=127677 u=splunk |  
+2020-07-17 14:29:54,482 p=127677 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml --inventory-file hosts -C -u splunk -K
+2020-07-17 14:29:54,482 p=127677 u=splunk |  
+2020-07-17 14:29:56,436 p=127677 u=splunk |  ERROR: problem running /home/splunk/repos/splunk-replacesslcerts/hosts --list ([Errno 8] Exec format error)
+2020-07-17 14:30:21,422 p=128279 u=splunk |  
+2020-07-17 14:30:21,423 p=128279 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml --inventory-file hosts -C -u splunk -K
+2020-07-17 14:30:21,423 p=128279 u=splunk |  
+2020-07-17 14:30:23,434 p=128279 u=splunk |  No hosts matched
+2020-07-17 14:31:47,396 p=129384 u=splunk |  
+2020-07-17 14:31:47,396 p=129384 u=splunk |  /usr/bin/ansible fetch-serverconf.yaml --inventory-file hosts -C -u splunk -K
+2020-07-17 14:31:47,396 p=129384 u=splunk |  
+2020-07-17 14:31:49,717 p=129384 u=splunk |  No hosts matched

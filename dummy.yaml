@@ -19,14 +19,14 @@
       lineinfile:
         path: /opt/splunk/etc/system/local/server-ansibletest.conf
         regexp: '^caPath.*mycerts'
-        line: 'sslRootCAPath = $SPLUNK_HOME/etc/auth/hhs_012019/root.pem'
+        line: 'sslRootCAPath = $SPLUNK_HOME/etc/auth/new_cert/root.pem'
         backup: yes
 
     - name: Conf server.conf - sslKeysFile
       lineinfile:
         path: /opt/splunk/etc/system/local/server-ansibletest.conf
         regexp: '^sslKeysfile\b'
-        line: 'serverCert = $SPLUNK_HOME/etc/auth/hhs_012019/{{ inventory_hostname }}.pem'
+        line: 'serverCert = $SPLUNK_HOME/etc/auth/new_cert/{{ inventory_hostname }}.pem'
         backup: yes
 
     - name: Conf server.conf - sslPassword

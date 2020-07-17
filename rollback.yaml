@@ -44,4 +44,4 @@
   
   tasks:
     - name: Delete new certs
-      shell: /bin/rm -rf /opt/splunk/etc/auth/hhs_012019/*
+      shell: /bin/rm -rf /opt/splunk/etc/auth/new_cert/*

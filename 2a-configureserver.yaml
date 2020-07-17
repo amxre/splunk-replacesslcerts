@@ -56,7 +56,7 @@
     - name: Configure server.conf - Add new caPath
       lineinfile:
         path: /opt/splunk/etc/system/local/server.conf
-        line: 'caPath = $SPLUNK_HOME/etc/auth/hhs_012019'
+        line: 'caPath = $SPLUNK_HOME/etc/auth/new_cert'
         insertafter: '\[sslConfig\]'
 
     - name: Conf server.conf - add requireClientCert = false

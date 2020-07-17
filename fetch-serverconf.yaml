@@ -1,7 +1,6 @@
 - name: Get server.conf
-  hosts: all
-  become: true
-  become_user: splunk
+#  become: true
+#  become_user: splunk
 
   tasks:
     - name: get server.conf and put in /tmp

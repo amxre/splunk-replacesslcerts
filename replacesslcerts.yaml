@@ -37,42 +37,42 @@
   
   tasks:
 
-    - name: Upload each host's specific public cert to /opt/splunk/etc/auth/hhs_012019/
+    - name: Upload each host's specific public cert to /opt/splunk/etc/auth/new_cert/
       copy:
         src: /tmp/certs/{{inventory_hostname}}/
-        dest: /opt/splunk/etc/auth/hhs_012019/
+        dest: /opt/splunk/etc/auth/new_cert/
         owner: splunk
         group: splunk
 
-#    - name: Convert splunkd key to RSA format and secure it (Note you must clear the hhs_012019 directory first using rollback.yaml)
+#    - name: Convert splunkd key to RSA format and secure it (Note you must clear the new_cert directory first using rollback.yaml)
 #      command: openssl rsa -in splunk-srv1.key -out splunk-srv1.key -passin pass:051rT_5plUNk && chmod 400 splunk-srv1.key
 #      args:
-#        chdir: /opt/splunk/etc/auth/hhs_012019/
-#        creates:  /opt/splunk/etc/auth/hhs_012019/splunk-srv1.key
+#        chdir: /opt/splunk/etc/auth/new_cert/
+#        creates:  /opt/splunk/etc/auth/new_cert/splunk-srv1.key
 #      no_log: true # don't want password in the logs
 
 #    - name: Convert splunkweb key to RSA format and secure it
 #      shell: openssl rsa -in splunk-srv1.web.key -out splunk-srv1.web.key && chmod 400 splunk-srv1.web.key
 #      args:
-#        chdir: /opt/splunk/etc/auth/hhs_012019/  
-#        creates: /opt/splunk/etc/auth/hhs_012019/splunk-srv1.web.key
+#        chdir: /opt/splunk/etc/auth/new_cert/  
+#        creates: /opt/splunk/etc/auth/new_cert/splunk-srv1.web.key
 
 #    - name: Cat splunkweb to splunkd key
 #      shell: rm -f splunk-srv1.key && cat splunk-srv1.web.key > splunk-srv1.key
 #      args:
-#        chdir: /opt/splunk/etc/auth/hhs_012019/
+#        chdir: /opt/splunk/etc/auth/new_cert/
 
-    - name: Concatenate splunkd certs into Splunk format (Note you must clear the hhs_012019 directory first using rollback.yaml)
+    - name: Concatenate splunkd certs into Splunk format (Note you must clear the new_cert directory first using rollback.yaml)
       shell: cat certnew.cer splunk-srv1.key rootchain.pem > {{ inventory_hostname }}.pem 
       args:
-        chdir: /opt/splunk/etc/auth/hhs_012019/
-        #creates: /opt/splunk/etc/auth/hhs_012019/{{ inventory_hostname}}.pem
+        chdir: /opt/splunk/etc/auth/new_cert/
+        #creates: /opt/splunk/etc/auth/new_cert/{{ inventory_hostname}}.pem
    
     - name: Concatenate Splunk Web certs into Splunk format
       shell: cat certnew.cer rootchain.pem > {{ inventory_hostname }}_web.pem 
       args:
-        chdir: /opt/splunk/etc/auth/hhs_012019/
-        #creates: /opt/splunk/etc/auth/hhs_012019/{{ inventory_hostname }}_web.pem
+        chdir: /opt/splunk/etc/auth/new_cert/
+        #creates: /opt/splunk/etc/auth/new_cert/{{ inventory_hostname }}_web.pem
     
 
 - name: Configure server.conf 
@@ -138,7 +138,7 @@
     - name: Add new caPath
       lineinfile:
         path: /opt/splunk/etc/system/local/server.conf
-        line: 'caPath = $SPLUNK_HOME/etc/auth/hhs_012019'
+        line: 'caPath = $SPLUNK_HOME/etc/auth/new_cert'
         insertafter: '\[sslConfig\]'
 
     - name: add requireClientCert = false
@@ -185,13 +185,13 @@
       lineinfile:
         path: /opt/splunk/etc/system/local/server.conf
         insertafter: '^\[replication_port-ssl.*'
-        line: 'rootCA = $SPLUNK_HOME/etc/auth/hhs_012019/rootchain.pem'
+        line: 'rootCA = $SPLUNK_HOME/etc/auth/new_cert/rootchain.pem'
 
     - name: set serverCert for the replicaiton_port-ssl stanza if it exists
       lineinfile:
         path: /opt/splunk/etc/system/local/server.conf
         insertafter: '^\[replication_port-ssl.*'
-        line: 'serverCert = $SPLUNK_HOME/etc/auth/hhs_012019/{{ inventory_hostname }}.pem'
+        line: 'serverCert = $SPLUNK_HOME/etc/auth/new_cert/{{ inventory_hostname }}.pem'
 
 
 - name: Configure web.conf on Splunk Web enabled servers where web.conf exists
@@ -208,7 +208,7 @@
       lineinfile: 
         path: /opt/splunk/etc/system/local/web.conf
         regexp: '^privKeyPath.*'
-        line: 'privKeyPath = $SPLUNK_HOME/etc/auth/hhs_012019/splunk-srv1.web.key'
+        line: 'privKeyPath = $SPLUNK_HOME/etc/auth/new_cert/splunk-srv1.web.key'
 
     - name: Remove previous instances of serverCert (if any)
       lineinfile:
@@ -220,7 +220,7 @@
       lineinfile:
         path: /opt/splunk/etc/system/local/web.conf
         regexp: '^caCertPath.*'
-        line: 'caCertPath = $SPLUNK_HOME/etc/auth/hhs_012019/{{ inventory_hostname }}_web.pem'
+        line: 'caCertPath = $SPLUNK_HOME/etc/auth/new_cert/{{ inventory_hostname }}_web.pem'
     
 
 - name: Configure web.conf on Indexers or where web.conf doesn't exist 
@@ -243,13 +243,13 @@
     - name: Add privKeyPath to web.conf after [settings] stanza
       lineinfile:
         path: /opt/splunk/etc/system/local/web.conf
-        line: 'privKeyPath = $SPLUNK_HOME/etc/auth/hhs_012019/splunk-srv1.web.key'
+        line: 'privKeyPath = $SPLUNK_HOME/etc/auth/new_cert/splunk-srv1.web.key'
         insertafter: '\[settings\]'
 
     - name: Add serverCert to web.conf after privKeyPath 
       lineinfile:
         path: /opt/splunk/etc/system/local/web.conf
-        line: 'caCertPath = $SPLUNK_HOME/etc/auth/hhs_012019/{{ inventory_hostname }}_web.pem'
+        line: 'caCertPath = $SPLUNK_HOME/etc/auth/new_cert/{{ inventory_hostname }}_web.pem'
         insertafter: '\[settings\]'
 
 # Add sslVersions

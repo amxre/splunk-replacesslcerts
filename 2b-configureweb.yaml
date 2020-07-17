@@ -12,7 +12,7 @@
       lineinfile: 
         path: /opt/splunk/etc/system/local/web.conf
         regexp: '^privKeyPath.*'
-        line: 'privKeyPath = $SPLUNK_HOME/etc/auth/hhs_012019/splunk-srv1.web.key'
+        line: 'privKeyPath = $SPLUNK_HOME/etc/auth/new_cert/splunk-srv1.web.key'
 
     - name: Remove previous instances of serverCert (if any)
       lineinfile:
@@ -24,7 +24,7 @@
       lineinfile:
         path: /opt/splunk/etc/system/local/web.conf
         regexp: '^caCertPath.*'
-        line: 'caCertPath = $SPLUNK_HOME/etc/auth/hhs_012019/{{ inventory_hostname }}_web.pem'
+        line: 'caCertPath = $SPLUNK_HOME/etc/auth/new_cert/{{ inventory_hostname }}_web.pem'
     
 
 - name: Configure web.conf on Indexers or where web.conf doesn't exist 
@@ -47,13 +47,13 @@
     - name: Add privKeyPath to web.conf after [settings] stanza
       lineinfile:
         path: /opt/splunk/etc/system/local/web.conf
-        line: 'privKeyPath = $SPLUNK_HOME/etc/auth/hhs_012019/splunk-srv1.web.key'
+        line: 'privKeyPath = $SPLUNK_HOME/etc/auth/new_cert/splunk-srv1.web.key'
         insertafter: '\[settings\]'
 
     - name: Add serverCert to web.conf after privKeyPath 
       lineinfile:
         path: /opt/splunk/etc/system/local/web.conf
-        line: 'caCertPath = $SPLUNK_HOME/etc/auth/hhs_012019/{{ inventory_hostname }}_web.pem'
+        line: 'caCertPath = $SPLUNK_HOME/etc/auth/new_cert/{{ inventory_hostname }}_web.pem'
         insertafter: '\[settings\]'
 
 # Add sslVersions
