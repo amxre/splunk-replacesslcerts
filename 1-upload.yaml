@@ -1,0 +1,44 @@
+- name: Upload new certs from controller to all remote hosts
+  hosts: all
+  become: true
+  become_user: splunk
+  
+  tasks:
+
+    - name: Upload each host's specific public cert to /opt/splunk/etc/auth/hhs_012019/
+      copy:
+        src: /tmp/certs/{{inventory_hostname}}/
+        dest: /opt/splunk/etc/auth/hhs_012019/
+        owner: splunk
+        group: splunk
+
+#    - name: Convert splunkd key to RSA format and secure it (Note you must clear the hhs_012019 directory first using rollback.yaml)
+#      command: openssl rsa -in splunk-srv1.key -out splunk-srv1.key -passin pass:051rT_5plUNk && chmod 400 splunk-srv1.key
+#      args:
+#        chdir: /opt/splunk/etc/auth/hhs_012019/
+#        creates:  /opt/splunk/etc/auth/hhs_012019/splunk-srv1.key
+#      no_log: true # don't want password in the logs
+
+#    - name: Convert splunkweb key to RSA format and secure it
+#      shell: openssl rsa -in splunk-srv1.web.key -out splunk-srv1.web.key && chmod 400 splunk-srv1.web.key
+#      args:
+#        chdir: /opt/splunk/etc/auth/hhs_012019/  
+#        creates: /opt/splunk/etc/auth/hhs_012019/splunk-srv1.web.key
+
+#    - name: Cat splunkweb to splunkd key
+#      shell: rm -f splunk-srv1.key && cat splunk-srv1.web.key > splunk-srv1.key
+#      args:
+#        chdir: /opt/splunk/etc/auth/hhs_012019/
+
+    - name: Concatenate splunkd certs into Splunk format (Note you must clear the hhs_012019 directory first using rollback.yaml)
+      shell: cat certnew.cer splunk-srv1.key rootchain.pem > {{ inventory_hostname }}.pem && dos2unix {{ inventory_hostname }}.pem
+      args:
+        chdir: /opt/splunk/etc/auth/hhs_012019/
+        #creates: /opt/splunk/etc/auth/hhs_012019/{{ inventory_hostname}}.pem
+   
+    - name: Concatenate Splunk Web certs into Splunk format
+      shell: cat certnew.cer rootchain.pem > {{ inventory_hostname }}_web.pem && dos2unix {{ inventory_hostname }}_web.pem
+      args:
+        chdir: /opt/splunk/etc/auth/hhs_012019/
+        #creates: /opt/splunk/etc/auth/hhs_012019/{{ inventory_hostname }}_web.pem
+    

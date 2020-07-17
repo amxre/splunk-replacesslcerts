@@ -1,0 +1,11 @@
+- name: Get server.conf
+  hosts: all
+  become: true
+  become_user: splunk
+
+  tasks:
+    - name: get server.conf and put in /tmp
+      fetch:
+        src: /opt/splunk/etc/system/local/server.conf
+        dest: /tmp/serverconf/{{ inventory_hostname }}
+        flat: yes

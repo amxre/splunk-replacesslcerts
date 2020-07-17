@@ -1,0 +1,47 @@
+- name: Restore server.conf prior to new cert updates
+  hosts: all
+  become: true
+  become_user: splunk
+
+  tasks:
+    - name: Restore server.conf from server.conf.bak.01172019 backup
+      copy:
+        src: /opt/splunk/etc/system/local/server.conf.bak.01172019
+        dest: /opt/splunk/etc/system/local/server.conf
+        remote_src: yes
+        owner: splunk
+        group: splunk
+ 
+
+- name: Restore web.conf on Splunk Web enabled servers
+  hosts: itio*dpm01 , cm, hf, adhoc, es
+  become: true
+  become_user: splunk
+
+  tasks:
+    - name: Restore web.conf from web.conf.bak.01172019
+      copy:
+        src: /opt/splunk/etc/system/local/web.conf.bak.01172019
+        dest: /opt/splunk/etc/system/local/web.conf
+        remote_src: yes
+        owner: splunk
+        group: splunk
+      ignore_errors: yes
+
+- name: Reset (delete) web.conf on Indexers
+  hosts: itio*idx*, itio*dpr*
+  become: true
+  become_user: splunk
+
+  tasks:
+    - name: Delete web.conf on indexers
+      shell: /bin/rm -f /opt/splunk/etc/system/local/web.conf 
+
+- name: Delete new certs
+  hosts: all
+  become: true
+  become_user: splunk
+  
+  tasks:
+    - name: Delete new certs
+      shell: /bin/rm -rf /opt/splunk/etc/auth/hhs_012019/*

@@ -1,0 +1,49 @@
+
+- name: Configure server.conf
+  hosts: all
+  become: true
+  become_user: splunk
+  tags: conf
+
+  tasks:
+
+    - name: Create a mirror of server.conf as server-ansibletest.conf for dummy changes
+      copy:
+        src: /opt/splunk/etc/system/local/server.conf
+        dest: /opt/splunk/etc/system/local/server-ansibletest.conf
+        remote_src: yes
+        owner: splunk
+        group: splunk
+
+    - name: Configure server.conf - caPath 
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server-ansibletest.conf
+        regexp: '^caPath.*mycerts'
+        line: 'sslRootCAPath = $SPLUNK_HOME/etc/auth/hhs_012019/root.pem'
+        backup: yes
+
+    - name: Conf server.conf - sslKeysFile
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server-ansibletest.conf
+        regexp: '^sslKeysfile\b'
+        line: 'serverCert = $SPLUNK_HOME/etc/auth/hhs_012019/{{ inventory_hostname }}.pem'
+        backup: yes
+
+    - name: Conf server.conf - sslPassword
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server-ansibletest.conf
+        regexp: '^sslPassword.*'
+        line: 'sslPassword = yourpassword
+        backup: yes
+
+    - name: Conf server.conf - remove instances of deprecated sslKeysfilepassword
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server-ansibletest.conf
+        regexp: '^sslKeysfilePassword.*'
+        state: absent
+
+#- name: Configure web.conf
+#  hosts: es deploy cm adhoc hf
+  
+#  tasks:
+#  - name: Configure web.conf  

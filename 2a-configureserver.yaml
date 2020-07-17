@@ -1,0 +1,96 @@
+
+- name: Configure server.conf
+  hosts: all
+  become: true
+  become_user: splunk
+  tags: conf
+
+  tasks:
+
+# Delete old ones
+    - name: Conf server.conf - remove any existing sslPassword or sslKeysfilePassword
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        regexp: '^sslPassword.*'
+        state: absent
+      no_log: true # we don't want passwords in the logs
+    
+    
+    - name: Conf server.conf - remove existing serverCert if it exists
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        regexp: '^serverCert.*'
+        state: absent
+
+    - name: Conf server.conf - remove existing caCertFile
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        regexp: '^caCertFile.*'
+        state: absent
+
+    - name: Conf server.conf - remove existing caPath
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        regexp: '^caPath.*'
+        state: absent
+
+    - name: Conf server.conf - remove deprecated sslKeysFile
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        regexp: '^sslKeysfile.*'
+        state: absent
+
+    - name: remove sslKeysfilePassword
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        regexp: '^sslKeysfilePassword.*'
+        state: absent
+
+# Add new configs    
+    - name: Configure server.conf - Add new caCertFile
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        line: 'caCertFile = rootchain.pem'
+        insertafter: '\[sslConfig\]'
+
+    - name: Configure server.conf - Add new caPath
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        line: 'caPath = $SPLUNK_HOME/etc/auth/hhs_012019'
+        insertafter: '\[sslConfig\]'
+
+    - name: Conf server.conf - add requireClientCert = false
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        insertafter: '\[sslConfig\]'
+        line: 'requireClientCert = false'
+    
+    - name: Conf server.conf - add enablesplunkdssl
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        insertafter: '\[sslConfig\]'
+        line: 'enableSplunkdSSL = true'
+
+    - name: Conf server.conf - add sslKeysfile 
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        insertafter: '\[sslConfig\]'
+        line: 'sslKeysfile = {{inventory_hostname}}.pem'
+
+    - name: add sslKeysfilePassword
+      lineinfile:
+        path: /opt/splunk/etc/system/local/server.conf
+        insertafter: '\[sslConfig\]'
+        line: 'sslKeysfilePassword = yourpassword
+      no_log: true # no passwords in the logs
+
+# NOTE: DO NOT SET sslPassword in server.conf! It will be automatically set by splunk upon restaring splunkd in local/server.conf
+#    - name: add sslPassword
+#      lineinfile:
+#        path: /opt/splunk/etc/system/local/server.conf
+#        insertafter: '\[sslConfig\]'
+#        line: 'sslPassword = yourpassword
+#      no_log: true # no passwords in the logs
+
+
+

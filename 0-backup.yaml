@@ -1,0 +1,32 @@
+- name: Backup server.conf 
+  hosts: all
+  become: true
+  become_user: splunk
+
+  tasks:
+    - name: Copy server.conf to server.conf.bak.012019
+      copy:
+        src: /opt/splunk/etc/system/local/server.conf
+        dest: /opt/splunk/etc/system/local/server.conf.bak.01172019
+        remote_src: yes
+        owner: splunk
+        group: splunk
+        backup: yes
+        force: no # don't overwrite the backup if it exists
+
+
+- name: Backup web.conf on Splunk Web enabled servers
+  hosts: itio*dpm01,cm,hf,adhoc,es
+  become: true
+  become_user: splunk
+
+  tasks:
+    - name: Copy web.conf to web.conf.bak.012019
+      copy:
+        src: /opt/splunk/etc/system/local/web.conf
+        dest: /opt/splunk/etc/system/local/web.conf.bak.01172019
+        remote_src: yes
+        owner: splunk
+        group: splunk
+        backup: yes
+        force: no # don't overwrite the backup if it exists

@@ -1,0 +1,12 @@
+- name: Get web.conf
+  hosts: all
+  become: true
+  become_user: splunk
+
+  tasks:
+    - name: get web.conf and put in /tmp
+      fetch:
+        src: /opt/splunk/etc/system/local/web.conf
+        dest: /tmp/webconf/{{ inventory_hostname }}/
+        flat: yes
+      

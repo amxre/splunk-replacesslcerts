@@ -1,0 +1,11 @@
+- name: Get root certs from all servers
+  hosts: all
+  become: true
+  become_user: splunk
+
+  tasks:
+    - name: Fetch root certs from all servers and copy locally into /tmp/certs/{hostname}/root.pem
+      fetch:
+        src: /opt/splunk/etc/auth/mycerts/root.pem
+        dest: /tmp/certs/{{ inventory_hostname }}/
+        flat: yes
